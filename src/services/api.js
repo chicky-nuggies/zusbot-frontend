@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: "https://zus-api.weishen.studio//api",
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",
