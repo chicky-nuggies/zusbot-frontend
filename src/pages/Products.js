@@ -40,10 +40,10 @@ const Products = () => {
 
   return (
     <div className="products-page">
-      <h1 className="page-title">Product Search</h1>
+      <h1 className="page-title">Drinkware Collection</h1>
       <p className="page-subtitle">
-        Ask about our coffee products, flavors, ingredients, pricing, or
-        anything else!
+        Discover our premium drinkware collection including mugs, tumblers,
+        reusable straws, and more eco-friendly drinking solutions!
       </p>
 
       <div className="products-container">
@@ -51,13 +51,13 @@ const Products = () => {
           <form onSubmit={handleSubmit} className="search-form">
             <div className="form-group">
               <label htmlFor="product-query" className="form-label">
-                What would you like to know about our products?
+                What drinkware products are you looking for?
               </label>
               <textarea
                 id="product-query"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="E.g., What coffee drinks do you have with less sugar? Tell me about your iced coffee options. What's the most popular drink?"
+                placeholder="E.g., Show me your thermal mugs, What tumblers do you have for travel? Tell me about your reusable straw options. What's the most popular drinkware?"
                 className="form-textarea"
                 rows={4}
                 disabled={isLoading}
@@ -69,7 +69,7 @@ const Products = () => {
                 className="btn"
                 disabled={isLoading || !query.trim()}
               >
-                {isLoading ? "Searching..." : "Search Products"}
+                {isLoading ? "Searching..." : "Search Drinkware"}
               </button>
               {result && (
                 <button
@@ -90,36 +90,40 @@ const Products = () => {
               <button
                 className="suggestion-card"
                 onClick={() =>
-                  setQuery("What are your most popular coffee drinks?")
+                  setQuery("Show me your thermal mugs and insulated options")
                 }
                 disabled={isLoading}
               >
-                Popular Drinks
+                Thermal Mugs
               </button>
               <button
                 className="suggestion-card"
                 onClick={() =>
-                  setQuery("Tell me about your iced coffee options")
+                  setQuery(
+                    "What tumblers do you have for travel and commuting?"
+                  )
                 }
                 disabled={isLoading}
               >
-                Iced Coffee
-              </button>
-              <button
-                className="suggestion-card"
-                onClick={() => setQuery("What drinks have low sugar content?")}
-                disabled={isLoading}
-              >
-                Low Sugar Options
+                Travel Tumblers
               </button>
               <button
                 className="suggestion-card"
                 onClick={() =>
-                  setQuery("What's the price range of your beverages?")
+                  setQuery("Tell me about your reusable straw collection")
                 }
                 disabled={isLoading}
               >
-                Pricing Info
+                Reusable Straws
+              </button>
+              <button
+                className="suggestion-card"
+                onClick={() =>
+                  setQuery("What's the most popular drinkware you sell?")
+                }
+                disabled={isLoading}
+              >
+                Popular Items
               </button>
             </div>
           </div>
@@ -131,7 +135,7 @@ const Products = () => {
           <div className="loading-section">
             <LoadingSpinner
               size="large"
-              text="Searching our product database..."
+              text="Searching our drinkware collection..."
             />
           </div>
         )}
@@ -139,7 +143,7 @@ const Products = () => {
         {result && (
           <div className="results-section">
             <div className="result-card">
-              <h2>AI Product Summary</h2>
+              <h2>Drinkware Recommendations</h2>
               <div className="result-content">
                 <div className="query-echo">
                   <strong>Your Query:</strong> {result.query}
@@ -152,7 +156,7 @@ const Products = () => {
                 {result.retrieved_products &&
                   result.retrieved_products.length > 0 && (
                     <div className="retrieved-products">
-                      <h3>Related Products Found:</h3>
+                      <h3>Recommended Drinkware:</h3>
                       <div className="products-list">
                         {result.retrieved_products.map((product, index) => (
                           <div key={index} className="product-item">
