@@ -75,6 +75,17 @@
   overflow-y: auto;
 }
 
+.tool-data.sql-code {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.result-text {
+  margin: 0;
+}
+
 .tool-result p {
   margin: 0 0 8px 0;
   font-size: 0.9rem;

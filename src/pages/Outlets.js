@@ -42,8 +42,8 @@ const Outlets = () => {
     <div className="outlets-page">
       <h1 className="page-title">Outlet Finder</h1>
       <p className="page-subtitle">
-        Find Zus Coffee outlets by location, opening hours, facilities, or any
-        other criteria!
+        Find our outlets by location, area, or specific addresses. Search by
+        state, city, mall, or nearby landmarks!
       </p>
 
       <div className="outlets-container">
@@ -51,13 +51,13 @@ const Outlets = () => {
           <form onSubmit={handleSubmit} className="search-form">
             <div className="form-group">
               <label htmlFor="outlet-query" className="form-label">
-                What outlets are you looking for?
+                Where are you looking for outlets?
               </label>
               <textarea
                 id="outlet-query"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="E.g., Find outlets near KLCC, Show me outlets open 24 hours, Which outlets have WiFi?, Outlets in Kuala Lumpur with parking"
+                placeholder="E.g., Show me outlets in Selangor, Find outlets in shopping malls, Outlets near KLCC, Show all outlets in Kuala Lumpur"
                 className="form-textarea"
                 rows={4}
                 disabled={isLoading}
@@ -89,45 +89,31 @@ const Outlets = () => {
             <div className="suggestions-grid">
               <button
                 className="suggestion-card"
+                onClick={() => setQuery("Show me outlets in shopping malls")}
+                disabled={isLoading}
+              >
+                🏢 Outlets in Malls
+              </button>
+              <button
+                className="suggestion-card"
+                onClick={() => setQuery("Find outlets in Selangor")}
+                disabled={isLoading}
+              >
+                �️ Selangor Outlets
+              </button>
+              <button
+                className="suggestion-card"
+                onClick={() => setQuery("Show outlets in Kuala Lumpur")}
+                disabled={isLoading}
+              >
+                🏙️ KL Outlets
+              </button>
+              <button
+                className="suggestion-card"
                 onClick={() => setQuery("Find outlets near KLCC")}
                 disabled={isLoading}
               >
                 📍 Near KLCC
-              </button>
-              <button
-                className="suggestion-card"
-                onClick={() => setQuery("Show me outlets open 24 hours")}
-                disabled={isLoading}
-              >
-                🕐 24 Hour Outlets
-              </button>
-              <button
-                className="suggestion-card"
-                onClick={() => setQuery("Which outlets have WiFi?")}
-                disabled={isLoading}
-              >
-                📶 WiFi Available
-              </button>
-              <button
-                className="suggestion-card"
-                onClick={() => setQuery("Outlets in Kuala Lumpur with parking")}
-                disabled={isLoading}
-              >
-                🅿️ With Parking
-              </button>
-              <button
-                className="suggestion-card"
-                onClick={() => setQuery("Find outlets in shopping malls")}
-                disabled={isLoading}
-              >
-                🏢 In Malls
-              </button>
-              <button
-                className="suggestion-card"
-                onClick={() => setQuery("Show all outlets in Selangor")}
-                disabled={isLoading}
-              >
-                🗺️ Selangor Area
               </button>
             </div>
           </div>
@@ -137,10 +123,7 @@ const Outlets = () => {
 
         {isLoading && (
           <div className="loading-section">
-            <LoadingSpinner
-              size="large"
-              text="Searching our outlet database..."
-            />
+            <LoadingSpinner size="large" text="Searching for outlets..." />
           </div>
         )}
 
@@ -153,10 +136,40 @@ const Outlets = () => {
                   <strong>Your Query:</strong> {result.query}
                 </div>
 
+                {result.summary && (
+                  <div className="ai-summary">
+                    <h3>Summary:</h3>
+                    <p>{result.summary}</p>
+                  </div>
+                )}
+
                 <div className="ai-response">
                   <h3>Results:</h3>
                   <div className="response-content">{result.response}</div>
                 </div>
+
+                {result.retrieved_outlets &&
+                  result.retrieved_outlets.length > 0 && (
+                    <div className="retrieved-outlets">
+                      <h3>Found Outlets:</h3>
+                      <div className="outlets-list">
+                        {result.retrieved_outlets.map((outlet, index) => (
+                          <div key={index} className="outlet-item">
+                            <div className="outlet-header">
+                              <span className="outlet-id">ID: {outlet.id}</span>
+                              <span className="similarity-score">
+                                Match:{" "}
+                                {(outlet.similarity_score * 100).toFixed(1)}%
+                              </span>
+                            </div>
+                            <div className="outlet-content">
+                              {outlet.content}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                 {result.tool_calls && result.tool_calls.length > 0 && (
                   <ToolMetadata toolCalls={result.tool_calls} />

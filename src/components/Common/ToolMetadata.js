@@ -21,6 +21,38 @@ const ToolMetadata = ({ toolCalls }) => {
               </span>
             </div>
 
+            {/* Tool Arguments (tool_args) */}
+            {toolCall.tool_args && toolCall.tool_args.length > 0 && (
+              <div className="tool-section">
+                <h5>Tool Arguments:</h5>
+                <pre className="tool-data">
+                  {JSON.stringify(toolCall.tool_args, null, 2)}
+                </pre>
+              </div>
+            )}
+
+            {/* Tool Keyword Arguments (tool_kwargs) */}
+            {toolCall.tool_kwargs &&
+              Object.keys(toolCall.tool_kwargs).length > 0 && (
+                <div className="tool-section">
+                  <h5>Tool Parameters:</h5>
+                  <pre className="tool-data">
+                    {JSON.stringify(toolCall.tool_kwargs, null, 2)}
+                  </pre>
+                </div>
+              )}
+
+            {/* Generated SQL (for database query tools) */}
+            {toolCall.generated_sql && (
+              <div className="tool-section">
+                <h5>Generated SQL:</h5>
+                <pre className="tool-data sql-code">
+                  {toolCall.generated_sql}
+                </pre>
+              </div>
+            )}
+
+            {/* Legacy arguments field for backward compatibility */}
             {toolCall.arguments && (
               <div className="tool-section">
                 <h5>Arguments:</h5>
@@ -30,12 +62,20 @@ const ToolMetadata = ({ toolCalls }) => {
               </div>
             )}
 
+            {/* Tool Result */}
             {toolCall.result && (
               <div className="tool-section">
                 <h5>Result:</h5>
                 <div className="tool-result">
                   {typeof toolCall.result === "string" ? (
-                    <p>{toolCall.result}</p>
+                    <div className="result-text">
+                      {toolCall.result.startsWith("[") ||
+                      toolCall.result.startsWith("{") ? (
+                        <pre className="tool-data">{toolCall.result}</pre>
+                      ) : (
+                        <p>{toolCall.result}</p>
+                      )}
+                    </div>
                   ) : Array.isArray(toolCall.result) ? (
                     <div>
                       <p>Found {toolCall.result.length} items:</p>
