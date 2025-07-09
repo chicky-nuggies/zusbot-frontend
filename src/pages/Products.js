@@ -170,7 +170,61 @@ const Products = () => {
                               </span>
                             </div>
                             <div className="product-content">
-                              {product.content}
+                              {typeof product.content === "string" ? (
+                                <p>{product.content}</p>
+                              ) : (
+                                <div className="product-details">
+                                  <h4>{product.content.name}</h4>
+                                  <p className="product-description">
+                                    {product.content.description}
+                                  </p>
+                                  <div className="product-pricing">
+                                    {product.content.sale_price && (
+                                      <span className="sale-price">
+                                        ${product.content.sale_price}
+                                      </span>
+                                    )}
+                                    {product.content.original_price && (
+                                      <span
+                                        className={
+                                          product.content.sale_price
+                                            ? "original-price discounted"
+                                            : "original-price"
+                                        }
+                                      >
+                                        ${product.content.original_price}
+                                      </span>
+                                    )}
+                                  </div>
+                                  {product.content.category && (
+                                    <p className="product-category">
+                                      Category: {product.content.category}
+                                    </p>
+                                  )}
+                                  {product.content.available_colors &&
+                                    product.content.available_colors.length >
+                                      0 && (
+                                      <p className="product-colors">
+                                        Colors:{" "}
+                                        {product.content.available_colors.join(
+                                          ", "
+                                        )}
+                                      </p>
+                                    )}
+                                  {product.content.product_details && (
+                                    <div className="product-specs">
+                                      <h5>Details:</h5>
+                                      <p>{product.content.product_details}</p>
+                                    </div>
+                                  )}
+                                  {product.content.product_warning && (
+                                    <div className="product-warning">
+                                      <strong>Warning:</strong>{" "}
+                                      {product.content.product_warning}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
                             </div>
                           </div>
                         ))}

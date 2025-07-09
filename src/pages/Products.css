@@ -175,6 +175,83 @@
   font-size: 0.95rem;
 }
 
+.product-details h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.product-description {
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.product-pricing {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sale-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+.original-price {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.original-price.discounted {
+  text-decoration: line-through;
+  color: #999;
+  font-weight: 400;
+}
+
+.product-category {
+  margin: 8px 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.product-colors {
+  margin: 8px 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.product-specs {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.product-specs h5 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-specs p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.product-warning {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #856404;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
